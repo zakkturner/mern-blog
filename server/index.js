@@ -4,9 +4,13 @@ const port = 3001;
 require("./db/mongoose");
 const postModel = require("./models/postModel");
 
-app.get("/", (req, res) => {
-  const posts = postModel.find();
-  console.log(posts);
+app.get("/", async (req, res) => {
+  try {
+    const posts = await postModel.find();
+    res.json(posts);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 });
 
 app.listen(port, () => {
