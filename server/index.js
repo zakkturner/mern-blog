@@ -2,9 +2,11 @@ const express = require("express");
 const app = express();
 const port = 3001;
 require("./db/mongoose");
+const cors = require("cors");
+app.use(cors());
 const postModel = require("./models/postModel");
 
-app.get("/", async (req, res) => {
+app.get("/posts/all", async (req, res) => {
   try {
     const posts = await postModel.find();
     res.json(posts);
